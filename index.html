@@ -1,126 +1,37 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAVI PAID PREDICTOR</title>
+    <title>MOD Update Notice</title>
     <style>
         body {
+            background-color: #f8f9fa;
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #ffccff, #ff99cc);
-            position: relative;
-            color: #8B0000;
-            overflow: hidden;
-        }
-        .container, .login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            padding: 50px;
         }
-        .hidden { display: none; }
-        input { width: 100%; padding: 10px; margin: 10px 0; }
-        button { padding: 10px 20px; background: #FF1493; color: white; border: none; cursor: pointer; }
+        .notice {
+            background-color: #ffcccc;
+            color: #990000;
+            padding: 20px;
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .tg {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #003366;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container" id="login-box">
-        <h2>Login</h2>
-        <input type="password" id="password" placeholder="Enter Password">
-        <button onclick="login()">Login</button>
-        <p id="error-message" style="color: red;"></p>
-    </div><div class="container hidden" id="main-content">
-    <div id="title">RAVI PAID PREDICTOR</div>
-    <div id="time">Time: Loading...</div>
-    <div id="period-number">Period: Loading...</div>
-    <div id="prediction-result">Prediction: Waiting...</div>
-    <div id="history-box">
-        <h3>Prediction History</h3>
-        <ul id="history-list"></ul>
+    <div class="notice">
+        <h2>YE MOD KA UPDATED VERSION LAUNCH HO GAYA HAI</h2>
+        <p>JAO AUR UPDATED KARAO</p>
+        <p>UPDATED CHARGE 200RS HAI</p>
+        <p>KOI FREE WALE MAT AANA</p>
+        <div class="tg">TG ID :- @RAVIRAJ095</div>
     </div>
-</div>
-
-<script>
-    let storedPassword = "ARS";
-    function login() {
-        let inputPassword = document.getElementById("password").value;
-        if (inputPassword === storedPassword) {
-            document.getElementById("login-box").classList.add("hidden");
-            document.getElementById("main-content").classList.remove("hidden");
-            fetchCurrentGameIssue();
-            setInterval(fetchCurrentGameIssue, 5000);
-        } else {
-            document.getElementById("error-message").textContent = "Incorrect Password";
-        }
-    }
-
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('time').textContent = `Time: ${now.toLocaleTimeString()}`;
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
-    
-    let history = [];
-    let latestPeriod = null;
-    async function fetchCurrentGameIssue() {
-        const apiUrl = 'https://api.bdg88zf.com/api/webapi/GetGameIssue';
-        const requestData = {
-            typeId: 1,
-            language: 0,
-            random: "40079dcba93a48769c6ee9d4d4fae23f",
-            signature: "D12108C4F57C549D82B23A91E0FA20AE",
-            timestamp: 1727792520,
-        };
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-                body: JSON.stringify(requestData),
-            });
-            if (response.ok) {
-                const data = await response.json();
-                if (data.code === 0) {
-                    const currentPeriod = data.data.issueNumber;
-                    if (currentPeriod !== latestPeriod) {
-                        latestPeriod = currentPeriod;
-                        document.getElementById('period-number').textContent = `Period: ${latestPeriod}`;
-                        generatePrediction();
-                    }
-                }
-            }
-        } catch (error) {
-            console.error("❌ Fetch error:", error);
-        }
-    }
-
-    function generatePrediction() {
-        const predictionElement = document.getElementById('prediction-result');
-        const historyList = document.getElementById('history-list');
-        
-        let directNumber = Math.floor(Math.random() * 10);
-        let oppositeNumber = (directNumber < 5) ? (Math.floor(Math.random() * 5) + 5) : (Math.floor(Math.random() * 5));
-        let bigSmallPrediction = (directNumber >= 5) ? "BIG" : "SMALL";
-        let bigSmallClass = (bigSmallPrediction === "BIG") ? "big" : "small";
-        let redGreenPrediction = (directNumber % 2 === 0) ? "RED" : "GREEN";
-        let redGreenClass = (redGreenPrediction === "RED") ? "red" : "green";
-        let predictionText = Math.random() > 0.7 ? `<span class="${redGreenClass}">${redGreenPrediction}</span>` : `<span class="${bigSmallClass}">${bigSmallPrediction}</span>`;
-        predictionElement.innerHTML = `Prediction: ${predictionText} | Numbers: ${directNumber}, ${oppositeNumber}`;
-        history.unshift(`Period ${latestPeriod}: ${predictionText} | ${directNumber}, ${oppositeNumber}`);
-        if (history.length > 10) history.pop();
-        historyList.innerHTML = history.map(item => `<li>${item}</li>`).join('');
-    }
-</script>
-
 </body>
 </html>
